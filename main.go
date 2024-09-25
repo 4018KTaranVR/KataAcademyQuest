@@ -51,14 +51,12 @@ func main() {
 
 	input, err := reader.ReadString('\n')
 	if err != nil {
-		fmt.Println("Ошибка! Ввод некорректен!", err)
-		return
+		panic(fmt.Sprintf("Ввод некорректен!"))
 	}
 
 	parts := strings.Fields(input)
 	if len(parts) != 3 {
-		fmt.Println("Ошбибка! Неверный формат!")
-		return
+		panic(fmt.Sprintf("Это не математическая операция!"))
 	}
 
 	var mode string
@@ -70,13 +68,11 @@ func main() {
 			num1, num2 = romanToAr(parts[0]), romanToAr(parts[2])
 			mode = "rom"
 		} else {
-			fmt.Println("Ошибка! Второе число - не римское, а первое - римское!")
-			return
+			panic(fmt.Sprintf("Второе число - арабское, а первое - римское!"))
 		}
 	} else {
 		if romanToAr(parts[2]) > 0 {
-			fmt.Println("Ошибка! Первое число - не римское, а второе - римское!")
-			return
+			panic(fmt.Sprintf("Первое число - арабское, а первое - римское!"))
 		}
 	}
 
@@ -84,14 +80,12 @@ func main() {
 	if mode != "rom" {
 		num1, err = strconv.Atoi(parts[0])
 		if err != nil {
-			fmt.Println("Ошибка! Первый операнд - не число!")
-			return
+			panic(fmt.Sprintf("Первый операнд - не число!"))
 		}
 
 		num2, err = strconv.Atoi(parts[2])
 		if err != nil {
-			fmt.Println("Ошибка! Второй операнд - не число!:")
-			return
+			panic(fmt.Sprintf("Второй операнд - не число!"))
 		} else {
 			mode = "ar"
 		}
@@ -100,20 +94,16 @@ func main() {
 	// Проверка арабских чисел на соответствие условиям
 	if mode == "ar" {
 		if num1 > 10 {
-			fmt.Println("Ошибка! Первое число больше 10!")
-			return
+			panic(fmt.Sprintf("Первое число больше 10!"))
 		}
 		if num2 > 10 {
-			fmt.Println("Ошибка! Второе число больше 10!")
-			return
+			panic(fmt.Sprintf("Второе число больше 10!"))
 		}
 		if num1 <= 0 {
-			fmt.Println("Ошибка! Первое число меньше 1!")
-			return
+			panic(fmt.Sprintf("Первое число меньше 1!"))
 		}
 		if num2 <= 0 {
-			fmt.Println("Ошибка! Второе число меньше 1!")
-			return
+			panic(fmt.Sprintf("Второе число меньше 1!"))
 		}
 	}
 
@@ -135,8 +125,7 @@ func main() {
 			if num1-num2 > 0 {
 				resultR = arToRoman(num1 - num2)
 			} else {
-				fmt.Println("Ошибка! В результате получилось отрицательное римское число!")
-				return
+				panic(fmt.Sprintf("В результате получилось отрицательное римское число!"))
 			}
 		} else {
 			result = num1 - num2
@@ -149,8 +138,7 @@ func main() {
 		}
 	case "/":
 		if num2 == 0 {
-			fmt.Println("Ошибка! На ноль делить нельзя!")
-			return
+			panic(fmt.Sprintf("На ноль делить нельзя!"))
 		}
 		if mode == "rom" {
 			resultR = arToRoman(num1 / num2)
@@ -158,8 +146,7 @@ func main() {
 			result = num1 / num2
 		}
 	default:
-		fmt.Println("Неверный оператор!")
-		return
+		panic(fmt.Sprintf("Неверный оператор!"))
 	}
 
 	if mode == "rom" {
