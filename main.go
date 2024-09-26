@@ -141,9 +141,18 @@ func main() {
 			panic(fmt.Sprintf("На ноль делить нельзя!"))
 		}
 		if mode == "rom" {
-			resultR = arToRoman(num1 / num2)
+			if num1/num2 < 1 {
+				panic(fmt.Sprintf("Результат деления римского чисел меньше 1!"))
+			} else {
+				resultR = arToRoman(num1 / num2)
+			}
+
 		} else {
-			result = num1 / num2
+			if num1/num2 < 1 {
+				panic(fmt.Sprintf("Результат деления римского чисел меньше 1!"))
+			} else {
+				result = num1 / num2
+			}
 		}
 	default:
 		panic(fmt.Sprintf("Неверный оператор!"))
